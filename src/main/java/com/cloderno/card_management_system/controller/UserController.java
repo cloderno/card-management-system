@@ -8,6 +8,7 @@ import com.cloderno.card_management_system.service.UserService;
 import com.cloderno.card_management_system.util.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,15 @@ public class UserController {
 
     private static final String BASE_URL = "/api/users";
 
-//    @GetMapping
-//    public List<User> getAll() {
-//        return userRepository.findAll();
-//    }
+    @GetMapping
+    public ResponseEntity<List<UserResponseDTO>> getAll() {
+        List<User> users = userService.findAll();
+        List<UserResponseDTO> userResponseDTOS = users.stream()
+                .map(userMapper::toResponseDTO)
+                .toList();
+
+        return ResponseEntity.ok(userResponseDTOS);
+    }
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> create(
@@ -36,7 +42,6 @@ public class UserController {
         UriComponentsBuilder uriComponentsBuilder
     ) {
         User user = userService.create(userRequest);
-
         URI location = uriComponentsBuilder
                 .path(BASE_URL + "/{id}")
                 .buildAndExpand(user.getId())
