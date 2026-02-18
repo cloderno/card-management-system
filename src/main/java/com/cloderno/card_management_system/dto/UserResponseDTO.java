@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserResponseDTO {
-
     private String firstName;
-
-
     private String lastName;
-
-
     private String email;
 }
