@@ -1,11 +1,16 @@
 package com.cloderno.card_management_system.dto;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserRequestDTO {
     @NotBlank
     @Size(min=3, max=50)
@@ -16,7 +21,10 @@ public class UserRequestDTO {
     private String lastName;
 
     @NotBlank
-    @Email
+    @Pattern(
+        regexp = "^[\\w-.]+@[\\w-]+\\.[a-z]{2,}$",
+        message = "must be a valid email"
+    )
     private String email;
 
     @NotBlank
