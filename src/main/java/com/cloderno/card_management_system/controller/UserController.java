@@ -9,6 +9,7 @@ import com.cloderno.card_management_system.util.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> create(
+    public ResponseEntity<?> create(
         @Valid @RequestBody UserRequestDTO userRequest,
         UriComponentsBuilder uriComponentsBuilder
     ) {

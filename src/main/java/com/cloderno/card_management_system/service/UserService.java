@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface UserService {
-    User create(UserRequestDTO userRequestDTO);
     List<User> findAll();
+    User create(UserRequestDTO userRequestDTO);
 }
